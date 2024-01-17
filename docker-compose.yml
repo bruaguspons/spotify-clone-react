@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:alpine3.18
+    restart: unless-stopped
+    container_name: postgres-spotify
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: spotify
+    ports:
+      - ${PORT_DB}:5432
+    healthcheck:
+      test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - networkBackend
+
+  express-dev:
+    container_name: express-spotify-dev
+    restart: unless-stopped
+    build:
+      context: ./backend
+      dockerfile: ./.devcontainer/Dockerfile
+      target: dev
+      args:
+        - PORT=${PORT_BACKEND}
+    image: express-spotify-image
+    # user: ${DOCKER_USER}
+    ports:
+      - ${PORT_BACKEND}:${PORT_BACKEND}
+    env_file:
+      - .env
+    environment:
+      - PORT=${PORT_BACKEND}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend/src:/code/src
+      - ./backend/prisma:/code/prisma
+    networks:
+      - networkBackend
+
+networks:
+  networkBackend:
+    name: network-backend

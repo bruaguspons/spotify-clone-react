@@ -1,0 +1,8 @@
+**/node_modules/
+**/dist
+**/.devcontainer
+.gitignore
+npm-debug.log
+.coverage
+.coverage.*
+.aws

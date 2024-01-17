@@ -1,0 +1,20 @@
+{
+	"name": "Express Dev",
+	"dockerComposeFile": [
+		"../../docker-compose.yml"
+	],
+	"service": "express-dev",
+	"shutdownAction": "none",
+	"workspaceFolder": "/code",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mikehanson.auto-barrel",
+				"yoavbls.pretty-ts-errors",
+				"prisma.prisma",
+				"dbaeumer.vscode-eslint"
+				// "rangav.vscode-thunder-client"
+			]
+		}
+	}
+}

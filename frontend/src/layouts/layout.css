@@ -1,0 +1,9 @@
+
+#layout {
+	display: grid;
+	grid-template-areas:
+		"aside main main"
+		"player player player";
+	grid-template-columns: 350px 1fr;
+	grid-template-rows: 1fr auto;
+}

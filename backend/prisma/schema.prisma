@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users{
+  uuid String @id @unique @db.Uuid @default(uuid())
+  email String @unique
+  password String
+  name String
+  lastName String
+  favPlaylists UserPlaylist[]
+}
+
+model Colors{
+  name String @id @unique
+  accent String @db.VarChar(7)
+  dark String @db.VarChar(7)
+  playlists Playlist[]
+}
+
+model Playlist{
+  id Int @id @unique @default(autoincrement())
+  albumId Int
+  title String
+  colorName String
+  color Colors @relation(fields: [colorName], references: [name])
+  cover String
+  users UserPlaylist[]
+  artists String[]
+}
+
+model UserPlaylist{
+  userUuid  String  @db.Uuid
+  playlistId Int
+  user    Users @relation(fields: [userUuid], references: [uuid])
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
+
+  @@id([userUuid, playlistId])
+}
