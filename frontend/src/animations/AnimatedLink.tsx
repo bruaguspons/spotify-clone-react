@@ -1,3 +1,4 @@
+import { type CSSProperties } from 'react';
 import { flushSync } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,9 +6,10 @@ interface Props {
     children: JSX.Element | Array<JSX.Element | string>
     to: string
     className?: string
+    style?: CSSProperties
 }
 
-const AnimatedLink = ({ children, to, className }: Props): JSX.Element => {
+const AnimatedLink = ({ children, to, className, style }: Props): JSX.Element => {
     const navigate = useNavigate();
     return (
         <a
@@ -22,6 +24,7 @@ const AnimatedLink = ({ children, to, className }: Props): JSX.Element => {
                 });
             }}
             className={className}
+            style={style}
         >
             {children}
         </a>

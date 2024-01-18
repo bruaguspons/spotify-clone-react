@@ -1,15 +1,13 @@
-import HomeIcon from '@/src/icons/HomeIcon';
-import LibraryIcon from '@/src/icons/LibraryIcon';
-import SearchIcon from '@/src/icons/SearchIcon';
 import PlayListsUser from './PlayListsUser';
 import AsideMenuItem from '../aside/AsideMenuItem';
+import { HomeIcon, LibraryIcon, SearchIcon } from '@/src/icons';
 
 const AsideMenu = (): JSX.Element => {
     return (
         <nav className="flex flex-col flex-1 gap-2">
             <div className="bg-zinc-900 rounded-lg p-2">
                 <ul>
-                    <AsideMenuItem cursor="pointer" href="/">
+                    <AsideMenuItem cursor="pointer" href="/" useAnimatedLink={true}>
                         <HomeIcon /> Menu
                     </AsideMenuItem>
                     <AsideMenuItem cursor="pointer" href="/search">

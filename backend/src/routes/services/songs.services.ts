@@ -1,5 +1,4 @@
-import { songs } from '@/lib/data';
-import { getOnePlaylistById } from './playlists.services';
+import { playlists, songs } from '@/lib/data';
 import { type Playlist, type Song } from '@/lib/data.d';
 
 export const getAllSongs = (): Song[] => {
@@ -7,6 +6,6 @@ export const getAllSongs = (): Song[] => {
 };
 
 export const getSongsFromPlaylistId = (id: Playlist['id']): Song[] => {
-    const playlist = getOnePlaylistById(id);
+    const playlist = playlists.find(playlist => playlist.id === id);
     return songs.filter(song => song.albumId === playlist?.albumId);
 };

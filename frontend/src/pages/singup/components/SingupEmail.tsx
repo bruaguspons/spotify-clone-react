@@ -7,9 +7,20 @@ function SingupEmail(): JSX.Element {
     const [emailValue, setEmailValue] = useState<string>(singupContextValue.email ?? '');
 
     const handleClick = (): void => {
+        const emailValue = emailRef.current?.value ?? '';
+        if (emailValue === '') return;
+
         const isCompleteNew = singupContextValue.isComplete;
         isCompleteNew.email = true;
-        setSingupContextValue({ ...singupContextValue, isComplete: isCompleteNew, email: emailRef.current?.value ?? '' });
+        setSingupContextValue({ ...singupContextValue, isComplete: isCompleteNew, email: emailValue });
+    };
+
+    const handleBlur = (value: string): void => {
+        if (value === '') {
+            setSingupContextValue({ ...singupContextValue, error: 'Email field cannot be empty.' });
+        } else {
+            setSingupContextValue({ ...singupContextValue, error: '' });
+        }
     };
 
     return (
@@ -34,6 +45,8 @@ function SingupEmail(): JSX.Element {
                     className="p-3 bg-zinc-800 text-zinc-300 font-semibold text-lg border border-zinc-400 rounded-lg hover:border-zinc-300 focus:border-zinc-200 outline-none focus:border-2 box-content"
                     value={emailValue}
                     onChange={e => { setEmailValue(e.target.value); }}
+                    onBlur={e => { handleBlur(e.target.value); }}
+                    autoComplete='email'
                 />
             </div>
             <button

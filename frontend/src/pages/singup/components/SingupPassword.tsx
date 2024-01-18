@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { useSingupContext } from '../context/singup.context';
-import PassEyeClose from '@/src/icons/PassEyeClose';
-import PassEyeOpen from '@/src/icons/PassEyeOpen';
+import { PassEyeClose, PassEyeOpen } from '@/src/icons';
 
 function SingupPassword(): JSX.Element {
     const { singupContextValue, setSingupContextValue } = useSingupContext();
@@ -11,14 +10,25 @@ function SingupPassword(): JSX.Element {
     const [isEyeOpen, setIsEyeOpen] = useState<boolean>(false);
 
     const handleClick = (): void => {
+        const passwordValue = passwordRef.current?.value ?? '';
+        if (passwordValue === '') return;
+
         const isCompleteNew = singupContextValue.isComplete;
         isCompleteNew.password = true;
-        setSingupContextValue({ ...singupContextValue, isComplete: isCompleteNew, password: passwordRef.current?.value ?? '' });
+        setSingupContextValue({ ...singupContextValue, isComplete: isCompleteNew, password: passwordValue });
     };
 
     const handleClickEye = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         setIsEyeOpen(!isEyeOpen);
+    };
+
+    const handleBlur = (value: string): void => {
+        if (value === '') {
+            setSingupContextValue({ ...singupContextValue, error: 'Password field cannot be empty.' });
+        } else {
+            setSingupContextValue({ ...singupContextValue, error: '' });
+        }
     };
 
     return (
@@ -40,6 +50,8 @@ function SingupPassword(): JSX.Element {
                         className="w-full p-3 bg-zinc-800 text-zinc-300 font-semibold text-lg border border-zinc-400 rounded-lg hover:border-zinc-300 focus:border-zinc-200 outline-none focus:border-2 box-content pr-16"
                         value={passValue}
                         onChange={e => { setPassValue(e.target.value); }}
+                        onBlur={e => { handleBlur(e.target.value); }}
+                        autoComplete='new-password'
                     />
                     <button className='text-zinc-400 hover:text-zinc-200 absolute right-0 mx-4' onClick={handleClickEye}>{isEyeOpen ? <PassEyeOpen/> : <PassEyeClose/>}</button>
                 </div>

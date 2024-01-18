@@ -25,14 +25,16 @@ export const singup = async (body: BodyInit): Promise<User> => {
         body
     });
 
+    if (!response.ok) throw new Error(response.statusText);
+
     const data: User = await response.json();
     return data;
 };
 export const logout = async (): Promise<void> => {
-    const token = getCookieSession();
-    await fetch('http://localhost:4000/api/users/singup', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` }
+    // const token = getCookieSession();
+    await fetch('http://localhost:4000/api/users/logout', {
+        method: 'GET',
+        credentials: 'include'
     });
 };
 
@@ -56,7 +58,7 @@ export const isFavPlaylist = async(token: User['token'], id: Playlist['id']): Pr
 };
 
 export const addOrRemovePlaylist = async(token: User['token'], id: Playlist['id']): Promise<boolean> => {
-    if (!token) {
+    if (token === '') {
         token = getCookieSession();
     }
     const formData = new FormData();

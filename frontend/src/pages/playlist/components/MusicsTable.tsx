@@ -1,6 +1,6 @@
 import { getOnePlaylistById, getSongsFromPlaylist } from '@/src/api/playlist';
-import Time from '@/src/icons/Time.tsx';
 import type { Playlist, Song } from '@/src/api/types/data';
+import { Time } from '@/src/icons';
 import { usePlayerStore } from '@/src/store/playerStore';
 import { useEffect, useState } from 'react';
 
@@ -33,8 +33,7 @@ const MusicsTable = ({ id }: Props): JSX.Element => {
                 if (songs.length > 0) {
                     setCurrentMusic({
                         playlist,
-                        song: songs.find(song => song.id === songId) ?? songs[0],
-                        songs
+                        song: songs.find(song => song.id === songId) ?? songs[0]
                     });
                     setIsPlaying(true);
                 }

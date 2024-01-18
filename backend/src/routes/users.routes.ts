@@ -8,7 +8,7 @@ const userRouter = Router();
 userRouter.get('/');
 
 userRouter.post('/login', usersController.login);
-userRouter.post('/logout', usersController.logout);
+userRouter.get('/logout', usersController.logout);
 userRouter.post('/singup', usersController.singup);
 userRouter.post('/playlists', authenticateToken, usersController.playlists);
 userRouter.get('/playlists', authenticateToken, usersController.playlists);

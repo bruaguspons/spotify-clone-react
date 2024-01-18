@@ -1,9 +1,6 @@
 import { useRef, useState } from 'react';
-import { Slider } from '../../../components/Slider';
-import Volume0 from '@/src/icons/Volume0';
-import Volume1 from '@/src/icons/Volume1';
-import Volume2 from '@/src/icons/Volume2';
-import Volume3 from '@/src/icons/Volume3';
+import { Slider } from './Slider';
+import { Volume0, Volume1, Volume2, Volume3 } from '@/src/icons';
 
 interface Props {
     audioRef: React.MutableRefObject<HTMLAudioElement | null>

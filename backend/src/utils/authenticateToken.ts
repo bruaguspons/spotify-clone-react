@@ -23,8 +23,6 @@ const authenticateToken = (req: Request, res: Response, next: NextFunction): voi
     }
 
     const callbackFun: VerifyCallback = (error, decoded) => {
-        console.log(error);
-
         if (error !== null || decoded === undefined) {
             res.sendStatus(403);
             return;

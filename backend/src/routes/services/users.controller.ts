@@ -68,7 +68,7 @@ const singup = (req: Request, res: Response): void => {
             const userLogin: UserLoginWithToken = {
                 ...parserUserToUserLogin(user), token
             };
-
+            res.cookie('session', token, { maxAge: 24 * 60 * 60 * 1000 });
             res.status(201).json(userLogin);
         } catch (error) {
             console.error(error);

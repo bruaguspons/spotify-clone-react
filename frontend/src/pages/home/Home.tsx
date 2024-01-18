@@ -1,13 +1,17 @@
 import { type Playlist, getAllPlaylist } from '@/src/api';
 import LayoutHome from '@/src/layouts/LayoutHome';
 import { useEffect, useState } from 'react';
-import Header from './header/Header';
+import Header from '../../layouts/components/header/Header';
 import PlayListItemCard from './components/PlayListItemCard';
+import { addLink } from '@/src/utils/navigationStore';
+import { useLocation } from 'react-router-dom';
 
 const Home = (): JSX.Element => {
+    const location = useLocation();
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
     useEffect(() => {
+        addLink(location.pathname);
         getAllPlaylist().then(data => {
             setPlaylists(data);
         }).catch(err => { console.error(err); });

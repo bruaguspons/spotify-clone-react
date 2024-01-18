@@ -1,7 +1,7 @@
 import { type Playlist } from '@/src/api';
 import CardPlayButtonHeart from './CardPlayButtonHeart';
 import CardPlayButton from './CardPlayButton';
-import AnimatedLink from '@/src/components/animations/AnimatedLink';
+import AnimatedLink from '@/src/animations/AnimatedLink';
 
 interface Props {
     playList: Playlist

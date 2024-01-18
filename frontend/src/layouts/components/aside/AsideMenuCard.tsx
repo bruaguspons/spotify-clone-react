@@ -1,3 +1,4 @@
+import AnimatedLink from '@/src/animations/AnimatedLink';
 import type { Playlist } from '@/src/api/types/data.d';
 interface Props {
     playList: Playlist
@@ -13,10 +14,7 @@ const SideMenuCard = ({ playList }: Props): JSX.Element => {
     const artistsStr = formatter.format(artists);
 
     return (
-        <a
-            href={`/playlist/${id}`}
-            className="playlist-item flex relative p-2 overflow-hidden items-center gap-5 rounded-md hover:bg-zinc-800"
-        >
+        <AnimatedLink to={`/playlist/${id}`} className='playlist-item flex relative p-2 overflow-hidden items-center gap-5 rounded-md hover:bg-zinc-800'>
             <picture className="h-12 w-12 flex-none">
                 <img
                     src={cover}
@@ -33,7 +31,7 @@ const SideMenuCard = ({ playList }: Props): JSX.Element => {
                     {artistsStr}
                 </span>
             </div>
-        </a>
+        </AnimatedLink>
     );
 };
 export default SideMenuCard;

@@ -1,7 +1,7 @@
 import { login } from '@/src/api';
 import { useUserStore } from '@/src/store/userStore';
 import { useState } from 'react';
-import FadeInOut from '../../../components/animations/FadeInOut';
+import FadeInOut from '../../../animations/FadeInOut';
 
 function LoginForm(): JSX.Element {
     const { setUser } = useUserStore(state => state);

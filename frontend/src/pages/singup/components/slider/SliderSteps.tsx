@@ -1,4 +1,4 @@
-import Arrow from '@/src/icons/Arrow';
+import { Arrow } from '@/src/icons';
 import { SingupSteps, useSingupContext } from '../../context/singup.context';
 import { SingupStepValueToNumber } from './SliderUtils';
 

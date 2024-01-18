@@ -18,6 +18,7 @@ interface ISingupContext {
         password: string
         name: User['name']
         lastName: User['lastName']
+        error: string
     }
     setSingupContextValue: React.Dispatch<React.SetStateAction<ISingupContext['singupContextValue']>>
 }
@@ -29,7 +30,8 @@ const SingupContextDefaultValue: ISingupContext['singupContextValue'] = {
     email: '',
     password: '',
     name: '',
-    lastName: ''
+    lastName: '',
+    error: ''
 };
 
 const SingupContext = createContext<ISingupContext | undefined>(undefined);

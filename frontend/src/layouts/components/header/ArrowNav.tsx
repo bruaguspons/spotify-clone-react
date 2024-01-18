@@ -1,5 +1,7 @@
-import Arrow from '@/src/icons/Arrow';
+import { Arrow } from '@/src/icons';
 import { isLeftLinkEnabled, isRightLinkEnabled, moveToNextLink, moveToPrevLink } from '@/src/utils/navigationStore';
+import { flushSync } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 
 export enum ArrowOrientation {
     Left = 'left',
@@ -9,18 +11,24 @@ interface Props {
     orientation: ArrowOrientation
 }
 
-const handleClick = (orientation: ArrowOrientation): void => {
-    let newLink: string = '';
-    if (orientation === ArrowOrientation.Right) {
-        newLink = moveToNextLink();
-    } else {
-        newLink = moveToPrevLink();
-    }
-
-    window.location.href = newLink;
-};
-
 const ArrowNav = ({ orientation }: Props): JSX.Element => {
+    const navigate = useNavigate();
+
+    const handleClick = (orientation: ArrowOrientation): void => {
+        let newLink: string = '';
+        if (orientation === ArrowOrientation.Right) {
+            newLink = moveToNextLink();
+        } else {
+            newLink = moveToPrevLink();
+        }
+
+        document.startViewTransition(() => {
+            flushSync(() => {
+                navigate(newLink, { replace: true });
+            });
+        });
+    };
+
     const isEnabled: boolean = (
         (orientation === ArrowOrientation.Right && isRightLinkEnabled()) ||
         (orientation === ArrowOrientation.Left && isLeftLinkEnabled())

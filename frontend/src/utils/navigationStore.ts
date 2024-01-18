@@ -22,7 +22,7 @@ const getDataFromLocalStorage = (): INavStoreValues => {
     };
 
     const navigationStr = localStorage.getItem('navigation');
-    return navigationStr ? JSON.parse(navigationStr) : defaultValues;
+    return navigationStr !== null ? JSON.parse(navigationStr) : defaultValues;
 };
 
 const saveDataInLocalStorage = (value: INavStoreValues): void => {
@@ -56,8 +56,8 @@ export const addLink = (link: string): void => {
     // si se va a agregar un link en una posicion ya ocupada elimino todo el resto de links
     // a partir de esa posicion.
 
-    const nextPos = data.currentLinkPos ? data.currentLinkPos + 1 : 1;
-    if (data.links[nextPos]) {
+    const nextPos = data.currentLinkPos !== null ? data.currentLinkPos + 1 : 1;
+    if (data.links[nextPos] !== '') {
         data.links = data.links.slice(0, nextPos);
     }
     data.links.push(link);
@@ -97,7 +97,7 @@ export const isRightLinkEnabled = (): boolean => {
 export const isLeftLinkEnabled = (): boolean => {
     const data = getDataFromLocalStorage();
     if (data.links.length < 2) return false;
-    if (data.currentLinkPos && data.currentLinkPos > 0) return true;
+    if (data.currentLinkPos !== null && data.currentLinkPos > 0) return true;
 
     return false;
 };

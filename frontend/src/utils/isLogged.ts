@@ -5,5 +5,5 @@ const getCookie = (name: string): string | undefined => {
 };
 
 export const isLogged = (): boolean => {
-    return !!getCookie('session');
+    return Boolean(getCookie('session'));
 };

@@ -1,10 +1,8 @@
-import Pause from '@/src/icons/Pause';
-import Play from '@/src/icons/Play';
-// import { playlists, type Playlist, songs } from "@/lib/data"
 import type { Playlist } from '@/src/api/types/data.d';
 import { getOnePlaylistById, getSongsFromPlaylist } from '@/src/api/playlist';
 
 import { usePlayerStore } from '@/src/store/playerStore';
+import { Pause, Play } from '@/src/icons';
 
 interface Props {
     id: Playlist['id']
@@ -15,15 +13,13 @@ function CardPlayButton({ id }: Props): JSX.Element {
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        console.log('hizo click antes');
-
+        e.stopPropagation();
         Promise.all([getOnePlaylistById(id), getSongsFromPlaylist(id)])
             .then(([playlist, songsFromPlaylist]) => {
                 if (songsFromPlaylist.length > 0) {
                     setCurrentMusic({
                         playlist,
-                        song: songsFromPlaylist[0],
-                        songs: songsFromPlaylist
+                        song: songsFromPlaylist[0]
                     });
                     setIsPlaying(true);
                 }
@@ -31,7 +27,8 @@ function CardPlayButton({ id }: Props): JSX.Element {
             .catch(err => { console.error(err); });
     };
 
-    const isPlayingPlaylist = isPlaying && currentMusic.playlist?.id === id;
+    const isPlayingPlaylist = isPlaying && currentMusic?.playlist?.id === id;
+    // const isPlayingPlaylist = false;
 
     return (
         <div

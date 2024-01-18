@@ -1,5 +1,5 @@
 import { parserNumToTime } from '@/src/utils';
-import { Slider } from '../../../components/Slider';
+import { Slider } from './Slider';
 import { useEffect, useState } from 'react';
 
 interface Props {

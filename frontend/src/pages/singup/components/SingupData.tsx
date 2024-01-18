@@ -5,6 +5,7 @@ function SingupData(): JSX.Element {
     const { singupContextValue, setSingupContextValue } = useSingupContext();
     const [nameValue, setNameValue] = useState<string>(singupContextValue.name ?? '');
     const [lastNameValue, setLastNameValue] = useState<string>(singupContextValue.lastName ?? '');
+
     return (
 
         <>
@@ -13,7 +14,7 @@ function SingupData(): JSX.Element {
                     htmlFor="name"
                     className="text-white font-semibold text-lg mb-2"
                 >
-                    Name
+                    Name (optional)
                 </label>
                 <input
                     type="text"
@@ -24,12 +25,13 @@ function SingupData(): JSX.Element {
                     value={nameValue}
                     onChange={e => { setNameValue(e.target.value); } }
                     onBlur={e => { setSingupContextValue({ ...singupContextValue, name: e.target.value }); }}
+                    autoComplete="given-name"
                 />
                 <label
                     htmlFor="lastName"
                     className="text-white font-semibold text-lg mb-2"
                 >
-                    Last Name
+                    Last Name (optional)
                 </label>
                 <input
                     type="text"
@@ -40,6 +42,7 @@ function SingupData(): JSX.Element {
                     value={lastNameValue}
                     onChange={e => { setLastNameValue(e.target.value); } }
                     onBlur={e => { setSingupContextValue({ ...singupContextValue, lastName: e.target.value }); }}
+                    autoComplete="family-name"
                 />
             </div>
         </>

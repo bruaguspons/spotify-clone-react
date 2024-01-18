@@ -1,13 +1,10 @@
 import { create } from 'zustand';
-import type { iPlayerStore, iCurrentMusic } from './types/playerStore';
+import { type Music } from '../types';
+import { type iPlayerStore } from '../types/playerStore';
 
 export const usePlayerStore = create<iPlayerStore>((set) => ({
     isPlaying: false,
-    currentMusic: {
-        playlist: null,
-        song: null,
-        songs: []
-    },
+    currentMusic: null,
     setIsPlaying: (isPlaying: boolean) => { set({ isPlaying }); },
-    setCurrentMusic: (currentMusic: iCurrentMusic) => { set({ currentMusic }); }
+    setCurrentMusic: (currentMusic: Music) => { set({ currentMusic }); }
 }));

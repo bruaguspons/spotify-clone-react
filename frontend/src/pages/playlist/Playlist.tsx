@@ -1,16 +1,19 @@
 import LayoutHome from '@/src/layouts/LayoutHome';
-import { useParams } from 'react-router-dom';
-import Header from '../home/header/Header';
+import { useLocation, useParams } from 'react-router-dom';
+import Header from '../../layouts/components/header/Header';
 import { getAllPlaylist, type Playlist as PlaylistType } from '@/src/api';
 import { useEffect, useState } from 'react';
 import MusicsTable from './components/MusicsTable';
+import { addLink } from '@/src/utils/navigationStore';
 
 const Playlist = (): JSX.Element => {
+    const location = useLocation();
     const { id } = useParams();
 
     const [playlistItem, setPlaylistItem] = useState<PlaylistType | null>(null);
 
     useEffect(() => {
+        addLink(location.pathname);
         getAllPlaylist().then(playlists => {
             const playlistData = playlists.find((playlist) => playlist.id === id);
             if (playlistData !== undefined) setPlaylistItem(playlistData);

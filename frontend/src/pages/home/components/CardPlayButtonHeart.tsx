@@ -1,5 +1,5 @@
 import { addOrRemovePlaylist, isFavPlaylist, type Playlist } from '@/src/api';
-import Heart from '@/src/icons/Heart';
+import { Heart } from '@/src/icons';
 import { useUserStore } from '@/src/store/userStore';
 import { isLogged } from '@/src/utils/isLogged';
 import { useEffect, useState } from 'react';
@@ -25,6 +25,7 @@ const CardPlayButtonHeart = ({ id }: Props): JSX.Element => {
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
+        e.stopPropagation();
         addOrRemovePlaylist(token, id)
             .then(ok => { if (ok) setIsLike(!isLike); })
             .catch(err => { console.error(err); });

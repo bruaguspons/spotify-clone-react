@@ -1,4 +1,4 @@
-import type { User } from '@/api/types/User';
+import type { User } from '@/src/api/types/User';
 
 const getCookieSession = (): User['token'] => {
     // Separamos las cookies por punto y coma (;)

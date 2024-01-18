@@ -6,7 +6,7 @@ import SingupEmail from './SingupEmail';
 import SingupData from './SingupData';
 import SingupPassword from './SingupPassword';
 import SliderSingup from './slider/SliderSingup';
-import FadeInOut from '../../../components/animations/FadeInOut';
+import FadeInOut from '../../../animations/FadeInOut';
 
 // import { Fade } from 'react-awesome-reveal';
 
@@ -17,15 +17,21 @@ function SingupForm(): JSX.Element {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
 
-        const formData = new FormData(e.target as HTMLFormElement);
+        if (
+            singupContextValue.email === '' ||
+            singupContextValue.password === ''
+        ) return;
 
+        const formData = new FormData();
         formData.append('login', singupContextValue.email);
         formData.append('password', singupContextValue.password);
+        formData.append('name', singupContextValue.name);
+        formData.append('lastName', singupContextValue.lastName);
 
         singup(formData).then(data => {
             setUser(data);
             window.location.href = '/';
-        }).catch(err => { console.error(err); });
+        }).catch(err => { console.error(err); setSingupContextValue({ ...singupContextValue, error: 'Ha ocurrido un error, vuelva a intentarlo.' }); });
     };
 
     const handleTransitionEndPrev = (prevStep: SingupSteps, currentStep: SingupSteps): void => {
@@ -88,6 +94,14 @@ function SingupForm(): JSX.Element {
                     </button>
                 }
             </form>
+
+            <FadeInOut
+                show={singupContextValue.error !== ''}
+                duration={500}
+            >
+                <span className='font-semibold text-red-600'>{singupContextValue.error}</span>
+            </FadeInOut>
+
             <span className="font-semibold text-zinc-300">Already have an account? <a
                 className="text-white font-semibold underline hover:text-green-400"
                 href="login">Log in here.</a>
