@@ -3,7 +3,7 @@ import type { User } from './types/User';
 import type { Playlist } from './types/data';
 
 export const login = async (body: BodyInit): Promise<User> => {
-    const response = await fetch('http://localhost:4000/api/users/login', {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL + 'api/users/login', {
         method: 'POST',
         // headers: {
         //     'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ export const login = async (body: BodyInit): Promise<User> => {
 };
 
 export const singup = async (body: BodyInit): Promise<User> => {
-    const response = await fetch('http://localhost:4000/api/users/singup', {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL + 'api/users/singup', {
         method: 'POST',
         credentials: 'include',
         body
@@ -32,7 +32,7 @@ export const singup = async (body: BodyInit): Promise<User> => {
 };
 export const logout = async (): Promise<void> => {
     // const token = getCookieSession();
-    await fetch('http://localhost:4000/api/users/logout', {
+    await fetch(import.meta.env.VITE_BACKEND_URL + 'api/users/logout', {
         method: 'GET',
         credentials: 'include'
     });
@@ -43,7 +43,7 @@ export const isFavPlaylist = async(token: User['token'], id: Playlist['id']): Pr
         token = getCookieSession();
     }
 
-    const response = await fetch(`http://localhost:4000/api/users/playlists?id=${id}`, {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL + `api/users/playlists?id=${id}`, {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` }
     });
@@ -63,7 +63,7 @@ export const addOrRemovePlaylist = async(token: User['token'], id: Playlist['id'
     }
     const formData = new FormData();
     formData.append('playlistId', id);
-    const response = await fetch('http://localhost:4000/api/users/playlists', {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL + 'api/users/playlists', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: formData
