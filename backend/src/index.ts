@@ -13,7 +13,7 @@ import cookieParser from 'cookie-parser';
 config();
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
@@ -29,11 +29,11 @@ app.use('/api/song', songRouter);
 app.use('/api/users', usersRouter);
 
 // Static files
-app.use('/index.html', (_req, res, _next) => {
-    res.redirect('/');
-});
-const frontStaticFiles = join(dirname(dirname(__dirname)), 'frontend/dist');
-app.use(express.static(frontStaticFiles));
+// app.use('/index.html', (_req, res, _next) => {
+//     res.redirect('/');
+// });
+// const frontStaticFiles = join(dirname(dirname(__dirname)), 'frontend/dist');
+// app.use(express.static(frontStaticFiles));
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {

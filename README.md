@@ -61,9 +61,12 @@ npm run dev
 cd backend
 ```
 
-2. Install dependencies using npm and run dev-server:
+2. Install dependencies using npm, generate db tables and run dev-server:
 ```bash
 npm install
+
+npm run db:init (just run it once)
+
 npm run dev
 ```
 
@@ -79,6 +82,11 @@ docker compose build
 2. Run docker compose
 ```bash
 docker compose up -d
+```
+
+3. Once your backer is running y must run the follow command:
+```bash
+docker exec express-dev npm run db:init
 ```
 
 ---
