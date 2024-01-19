@@ -89,10 +89,50 @@ const logout = (_req: Request, res: Response): void => {
     })().catch(err => { console.error(err); });
 };
 
+const getInfoUser = (req: Request, res: Response): void => {
+    (async() => {
+        try {
+            const userToken = req.user;
+            if (userToken === undefined) return res.sendStatus(401);
+
+            const user = await prisma.users.findUnique({ where: { uuid: userToken.uuid as string } });
+
+            return res.status(202).json({ user });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'Error al obtener el usuario' });
+        }
+    })().catch(err => { console.error(err); });
+};
+
 const existsUserPlaylist = async (userUuid: UserPlaylist['userUuid'], playlistId: UserPlaylist['playlistId']): Promise<boolean> => {
     const userPlaylist = await prisma.userPlaylist.findUnique({ where: { userUuid_playlistId: { userUuid, playlistId } } });
 
     return userPlaylist !== null;
+};
+
+const getAllPlaylistsUser = (req: Request, res: Response): void => {
+    (async() => {
+        try {
+            const userToken = req.user;
+            if (userToken === undefined) return res.sendStatus(401);
+
+            const playlistsUser = await prisma.userPlaylist.findMany({ where: { userUuid: userToken.uuid } });
+
+            const playlists = await prisma.playlist.findMany({
+                where: {
+                    id: {
+                        in: playlistsUser.map(playlistUser => playlistUser.playlistId)
+                    }
+                }
+            });
+
+            return res.status(202).json({ isFavPlaylists: playlists });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'Error al obtener las playlists del usuario' });
+        }
+    })().catch(err => { console.error(err); });
 };
 
 const playlists = (req: Request, res: Response): void => {
@@ -157,4 +197,4 @@ const playlists = (req: Request, res: Response): void => {
     res.status(501);
 };
 
-export default { login, singup, logout, playlists };
+export default { login, singup, logout, playlists, getAllPlaylistsUser, getInfoUser };

@@ -12,4 +12,6 @@ userRouter.get('/logout', usersController.logout);
 userRouter.post('/singup', usersController.singup);
 userRouter.post('/playlists', authenticateToken, usersController.playlists);
 userRouter.get('/playlists', authenticateToken, usersController.playlists);
+userRouter.get('/getAllPlaylists', authenticateToken, usersController.getAllPlaylistsUser);
+userRouter.get('/getInfo', authenticateToken, usersController.getInfoUser);
 export default userRouter;

@@ -38,6 +38,35 @@ export const logout = async (): Promise<void> => {
     });
 };
 
+export const getUserInfo = async(): Promise<User> => {
+    const token = getCookieSession();
+
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL + 'api/users/getInfo', {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` }
+    });
+
+    const data = await response.json();
+    return data.user;
+};
+
+export const getAllPlaylistUser = async(token: User['token']): Promise<Playlist[]> => {
+    if (token === '') {
+        token = getCookieSession();
+    }
+
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL + 'api/users/getAllPlaylists', {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` }
+    });
+    if (response.ok) {
+        const data = await response.json();
+        return data.isFavPlaylists;
+    }
+    // TODO: Falta manejar los errores correctamente
+    return [];
+};
+
 export const isFavPlaylist = async(token: User['token'], id: Playlist['id']): Promise<boolean> => {
     if (token === '') {
         token = getCookieSession();
