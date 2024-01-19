@@ -2,6 +2,8 @@
 
 This project is a basic clone of the Spotify application, developed using React for the frontend, Express for the backend, and TypeScript to enhance code robustness. The backend is containerized with Docker to facilitate server execution and deployment.
 
+The project is based on this video: https://www.youtube.com/watch?v=WRc8lz-bp78
+
 ## Clone the Project
 
 To clone this project to your local machine, follow these steps:
