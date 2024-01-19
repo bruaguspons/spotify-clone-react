@@ -78,7 +78,7 @@ npm run dev
 cd backend
 ```
 
-2. Install dependencies using npm, generate db tables and run dev-server:
+2. Install dependencies using npm, generate db tables and run dev-server (if you are using Docker, you can ignore this step.):
 ```bash
 npm install
 
@@ -103,7 +103,12 @@ docker compose up -d
 
 3. Once your backer is running y must run the follow command:
 ```bash
-docker exec express-dev npm run db:init
+docker exec express-spotify-dev npm run db:init
+```
+
+4. Restart docker compose:
+```bash
+docker compose restart
 ```
 
 ---
