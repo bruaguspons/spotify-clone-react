@@ -39,6 +39,23 @@ CREATE DATABASE spotify;
 
 ---
 
+## Configuration
+
+There are 3 different .env files in the project:
+1. ./env.example (located at the root of the project)
+2. ./frontend/env.example
+3. ./backend/env.example
+
+The first .env file is for Docker configuration (ignore this one if you're not using Docker).
+
+The second one is for frontend configuration, where you define the URL of your backend.
+
+The third one is for backend configuration, where you define the URL of your database, the port where the server is listening, and a secret key for JWT.
+
+(DO NOT Forget to change "env.example" to ".env")
+
+---
+
 ## Install Dependencies
 
 ### Frontend
@@ -65,7 +82,7 @@ cd backend
 ```bash
 npm install
 
-npm run db:init (just run it once)
+npm run db:init (execute it only once)
 
 npm run dev
 ```
@@ -88,23 +105,6 @@ docker compose up -d
 ```bash
 docker exec express-dev npm run db:init
 ```
-
----
-
-## Configuration
-
-There are 3 different .env files in the project:
-1. ./env.example (located at the root of the project)
-2. ./frontend/env.example
-3. ./backend/env.example
-
-The first .env file is for Docker configuration (ignore this one if you're not using Docker).
-
-The second one is for frontend configuration, where you define the URL of your backend.
-
-The third one is for backend configuration, where you define the URL of your database, the port where the server is listening, and a secret key for JWT.
-
-(DO NOT Forget to change "env.example" to ".env")
 
 ---
 ## Conclusions

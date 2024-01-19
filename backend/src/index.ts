@@ -3,7 +3,7 @@ import playlistRouter from './routes/playlist.routes';
 import songRouter from './routes/song.routes';
 import usersRouter from './routes/users.routes';
 import cors from 'cors';
-import { dirname, join } from 'node:path';
+// import { dirname, join } from 'node:path';
 import morgan from 'morgan';
 import { formMiddleware, prisma } from '@/utils/';
 
