@@ -1,6 +1,6 @@
-# Spotify Clone with React.js, Express, and TypeScript
+# Spotify Clone with React, Express, and TypeScript
 
-This project is a basic clone of the Spotify application, developed using React.js for the frontend, Express for the backend, and TypeScript to enhance code robustness. The backend is containerized with Docker to facilitate server execution and deployment.
+This project is a basic clone of the Spotify application, developed using React for the frontend, Express for the backend, and TypeScript to enhance code robustness. The backend is containerized with Docker to facilitate server execution and deployment.
 
 ## Clone the Project
 
@@ -16,6 +16,23 @@ git clone https://github.com/bruaguspons/spotify-clone-react.git
 
 ```bash
 cd spotify-clone-react
+```
+
+---
+
+## Setting up the database  (optional)
+If you are using Docker, you can ignore this step.
+
+The database used in the project is PostgreSQL, so make sure you have it installed.
+
+Then, execute the following commands:
+
+```bash
+psql -U postgres -h localhost -p 5432
+```
+
+```bash
+CREATE DATABASE spotify;
 ```
 
 ---
@@ -64,6 +81,22 @@ docker compose up -d
 
 ---
 
+## Configuration
+
+There are 3 different .env files in the project:
+1. ./env.example (located at the root of the project)
+2. ./frontend/env.example
+3. ./backend/env.example
+
+The first .env file is for Docker configuration (ignore this one if you're not using Docker).
+
+The second one is for frontend configuration, where you define the URL of your backend.
+
+The third one is for backend configuration, where you define the URL of your database, the port where the server is listening, and a secret key for JWT.
+
+(DO NOT Forget to change "env.example" to ".env")
+
+---
 ## Conclusions
 
 Ready! Now you can access the Spotify clone in your browser and enjoy the basic user experience. If you chose to use Docker, make sure the backend container is running while using the frontend application.

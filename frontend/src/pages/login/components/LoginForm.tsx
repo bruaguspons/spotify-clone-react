@@ -16,7 +16,7 @@ function LoginForm(): JSX.Element {
             setUser(data);
             setError('');
             window.location.href = '/';
-        }).catch(err => { console.error(err); setError('Ha ocurrido un error, vuelva a intentarlo.'); });
+        }).catch(err => { console.error(err); setError('An error has occurred, please try again.'); });
     };
 
     return (

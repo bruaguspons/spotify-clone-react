@@ -31,7 +31,7 @@ function SingupForm(): JSX.Element {
         singup(formData).then(data => {
             setUser(data);
             window.location.href = '/';
-        }).catch(err => { console.error(err); setSingupContextValue({ ...singupContextValue, error: 'Ha ocurrido un error, vuelva a intentarlo.' }); });
+        }).catch(err => { console.error(err); setSingupContextValue({ ...singupContextValue, error: 'An error has occurred, please try again.' }); });
     };
 
     const handleTransitionEndPrev = (prevStep: SingupSteps, currentStep: SingupSteps): void => {
