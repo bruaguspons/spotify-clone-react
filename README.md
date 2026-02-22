@@ -199,29 +199,6 @@ spotify-clone-react/
 └── README.md
 ```
 
-## Troubleshooting
-
-### Port Already in Use
-If ports 3000 or 5173 are already in use, update the configuration in the respective `.env` files.
-
-### Database Connection Issues
-Ensure PostgreSQL is running and the database URL in the `.env` file is correct.
-
-### Docker Issues
-Try rebuilding the images:
-```bash
-docker compose down
-docker compose up -d --build
-```
-
-## Contributing
-
-Feel free to fork this repository and submit pull requests for any improvements.
-
 ## License
 
 This project is open source and available for educational purposes.
-
----
-
-✨ **Ready to go!** Now you can access the Spotify clone in your browser. If using Docker, ensure the containers are running with `docker compose logs` to verify everything is working correctly.
