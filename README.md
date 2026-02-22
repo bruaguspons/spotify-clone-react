@@ -1,10 +1,36 @@
 # Spotify Clone with React, Express, and TypeScript
 
-This project is a basic clone of the Spotify application, developed using React for the frontend, Express for the backend, and TypeScript to enhance code robustness. The backend is containerized with Docker to facilitate server execution and deployment.
+A full-stack Spotify clone application built with modern web technologies. This project demonstrates a complete implementation of a music streaming platform with authentication, playlist management, and real-time music playback.
 
-The project is based on this video: https://www.youtube.com/watch?v=WRc8lz-bp78
+**Stack:**
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS
+- **Backend:** Express, TypeScript, Prisma ORM
+- **Database:** PostgreSQL
+- **Containerization:** Docker & Docker Compose
 
-## Clone the Project
+**Tutorial:** This project is based on [this YouTube video](https://www.youtube.com/watch?v=WRc8lz-bp78)
+
+---
+
+## Demo
+
+![Spotify Clone Demo](demo.gif)
+
+> **Note:** The colors in this GIF may appear slightly different from the actual application due to color compression during the MP4 to GIF conversion process. The original interface uses vibrant colors that are better represented in the live application.
+
+---
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- **Node.js** (v14 or higher) - [Download](https://nodejs.org/)
+- **npm** or **yarn** - comes with Node.js
+- **PostgreSQL** (v12 or higher) - [Download](https://www.postgresql.org/download/) - *Only if not using Docker*
+- **Docker & Docker Compose** - [Download](https://www.docker.com/products/docker-desktop) - *Optional, for containerized setup*
+
+## Getting Started
+
+### Clone the Project
 
 To clone this project to your local machine, follow these steps:
 
@@ -22,96 +48,180 @@ cd spotify-clone-react
 
 ---
 
-## Setting up the database  (optional)
-If you are using Docker, you can ignore this step.
+### Setting up the Database (Optional - Skip if Using Docker)
 
-The database used in the project is PostgreSQL, so make sure you have it installed.
+If you prefer to run the database locally instead of using Docker, follow these steps:
 
-Then, execute the following commands:
-
+1. Connect to PostgreSQL:
 ```bash
 psql -U postgres -h localhost -p 5432
 ```
 
+2. Create the database:
 ```bash
 CREATE DATABASE spotify;
 ```
 
 ---
 
-## Configuration
+### Environment Configuration
 
-There are 3 different .env files in the project:
-1. ./env.example (located at the root of the project)
-2. ./frontend/env.example
-3. ./backend/env.example
+The project includes three `.env.example` files. Copy each to `.env` and configure as needed:
 
-The first .env file is for Docker configuration (ignore this one if you're not using Docker).
+1. **Root Directory** (`./env.example`)
+   - Used for Docker configuration
+   - Skip if not using Docker
 
-The second one is for frontend configuration, where you define the URL of your backend.
+2. **Frontend** (`./frontend/env.example`)
+   - Configure the backend API URL
+   - Example: `VITE_API_URL=http://localhost:3000`
 
-The third one is for backend configuration, where you define the URL of your database, the port where the server is listening, and a secret key for JWT.
+3. **Backend** (`./backend/env.example`)
+   - Database connection URL
+   - Server port
+   - JWT secret key for authentication
 
-(DO NOT Forget to change "env.example" to ".env")
+**Important:** Rename all `env.example` files to `.env` before running the application.
 
 ---
 
-## Install Dependencies
+## Installation
 
-### Frontend
+### Option 1: Local Setup (Without Docker)
 
-1. Navigate to the "frontend" directory:
+#### Frontend
+
+1. Navigate to the frontend directory:
 ```bash
 cd frontend
 ```
 
-2. Install dependencies using npm and run dev-server:
+2. Install dependencies and start the development server:
 ```bash
 npm install
 npm run dev
 ```
 
-### Backend
+The frontend will be available at `http://localhost:5173`
 
-1. Navigate to the "backend" directory:
+#### Backend
+
+1. Navigate to the backend directory:
 ```bash
 cd backend
 ```
 
-2. Install dependencies using npm, generate db tables and run dev-server (if you are using Docker, you can ignore this step.):
+2. Install dependencies:
 ```bash
 npm install
+```
 
-npm run db:init (execute it only once)
+3. Initialize the database (run only once):
+```bash
+npm run db:init
+```
 
+4. Start the development server:
+```bash
 npm run dev
 ```
 
-## Run the Backend and DB with Docker (Optional)
-If you prefer to run the backend using Docker, ensure you have Docker installed on your machine. Then, follow these steps:
+The backend will be available at `http://localhost:3000`
 
-1. From the project's root directory, build the Docker image
+### Option 2: Docker Setup (Recommended)
 
+If you prefer containerized deployment, follow these steps:
+
+1. From the project root directory, build the Docker images:
 ```bash
 docker compose build
 ```
 
-2. Run docker compose
+2. Start the containers:
 ```bash
 docker compose up -d
 ```
 
-3. Once your backer is running y must run the follow command:
+3. Initialize the database (run only once):
 ```bash
 docker exec express-spotify-dev npm run db:init
 ```
 
-4. Restart docker compose:
+4. Restart the containers to apply changes:
 ```bash
 docker compose restart
 ```
 
----
-## Conclusions
+The application will be available at `http://localhost:5173`
 
-Ready! Now you can access the Spotify clone in your browser and enjoy the basic user experience. If you chose to use Docker, make sure the backend container is running while using the frontend application.
+**Useful Docker Commands:**
+```bash
+# View logs
+docker compose logs -f
+
+# Stop containers
+docker compose down
+
+# Rebuild images
+docker compose up -d --build
+```
+
+---
+
+## Features
+
+- 🎵 **Music Playback** - Play, pause, and control music with real-time updates
+- 👤 **User Authentication** - Secure JWT-based authentication and session management
+- 📋 **Playlist Management** - Create, edit, and manage custom playlists
+- 🔍 **Search & Discovery** - Search for songs and explore playlists
+- 🎨 **Responsive Design** - Beautiful UI with Tailwind CSS and smooth animations
+- 📱 **Mobile Friendly** - Optimized for desktop and mobile devices
+
+## Project Structure
+
+```
+spotify-clone-react/
+├── frontend/          # React + TypeScript + Vite
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── store/
+│   │   └── utils/
+│   └── ...
+├── backend/           # Express + TypeScript
+│   ├── src/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── utils/
+│   ├── prisma/        # Database schema
+│   └── ...
+├── docker-compose.yml # Docker configuration
+└── README.md
+```
+
+## Troubleshooting
+
+### Port Already in Use
+If ports 3000 or 5173 are already in use, update the configuration in the respective `.env` files.
+
+### Database Connection Issues
+Ensure PostgreSQL is running and the database URL in the `.env` file is correct.
+
+### Docker Issues
+Try rebuilding the images:
+```bash
+docker compose down
+docker compose up -d --build
+```
+
+## Contributing
+
+Feel free to fork this repository and submit pull requests for any improvements.
+
+## License
+
+This project is open source and available for educational purposes.
+
+---
+
+✨ **Ready to go!** Now you can access the Spotify clone in your browser. If using Docker, ensure the containers are running with `docker compose logs` to verify everything is working correctly.
